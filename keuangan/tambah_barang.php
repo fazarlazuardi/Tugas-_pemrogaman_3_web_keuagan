@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TUGAS PEMOGRAMAN 3</title>
+		<title>CRUD - SEDERHANA</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+		<script src="bootstrap/js/jquery.js"></script>
 	</head>
 
 	<?php
@@ -12,7 +16,7 @@
 		{
 			$nama_barang = $_POST['nama_barang'];
 			$kode_barang = $_POST['kode_barang'];
-			$qty = $_POST['qty'];
+			$qty 		 = $_POST['qty'];
 			$kategori_id = $_POST['kategori_id'];
 			// menginput data ke database
 			$query=mysqli_query($koneksi,"insert into barang values('','$nama_barang','$kode_barang','$qty','$kategori_id')");
@@ -32,45 +36,47 @@
 		$resultkategori = mysqli_query ($koneksi,$querykategori); 
 	?>
 	<body>
-		<h2>DATA BARANG</h2>
-		<br/>
-		<a href="index.php">KEMBALI</a>
 		<br/>
 		<br/>
-		<h3>TAMBAH DATA BARANG</h3>
-		<form method="POST">
-			<table>
-				<tr>
-					<td>Nama Barang</td>
-					<td><input type="text" name="nama_barang"></td>
-				</tr>
-				<tr>
-					<td>Kode Barang</td>
-					<td><input type="text" name="kode_barang"></td>
-				</tr>
-				<tr>
-					<td>Qty Barang</td>
-					<td><input type="number" name="qty"></td>
-				</tr>
-				<tr>
-					<td>Kategori Barang</td>
-					<td>
-						<select name="kategori_id">
-							<option value="">-----Pilih-----</option>
-							<?php
-							while ($datakategori=mysqli_fetch_array($resultkategori))
-							{
-								echo "<option value=$datakategori[id_kategori]>$datakategori[nama_kategori]</option>";
-							}
-							?>
+		<div class="container">		
+			<a href="transaksi.php" class="btn btn-outline-primary" tabindex="-1" role="button">KEMBALI</a>
+			<center><h1>TAMBAH DATA BARANG</h1></center>
+
+			<form class="form-horizontal"  method="POST">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="nama_barang">Nama Barang</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" name="nama_barang">
+					</div>
+				</div>	
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="kode_barang">Kode Barang</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" name="kode_barang">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="qty">Qty Barang</label>
+					<div class="col-sm-5">
+						<input type="number" class="form-control" name="qty">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="kategori_id">Kategori Barang</label>
+					<div class="col-sm-5">
+						<select class="form-control" name="kategori_id" id="kategori_id">
+							<option value="">-----Pilih Kategori-----</option>
+								<?php
+									while ($datakategori=mysqli_fetch_array($resultkategori))
+									{
+										echo "<option value=$datakategori[id_kategori]>$datakategori[nama_kategori]</option>";
+									}
+								?>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" name="save"></td>
-				</tr>
-			</table>
-		</form>
+					</div>
+				</div>
+				<input type="submit" name="save" class="btn btn-danger">
+			</form>		
+		</div>
 	</body>
 </html>
